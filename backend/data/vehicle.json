@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "v1",
+    "plateNumber": "CG04AB1234",
+    "driverName": "Rajesh Kumar",
+    "gate": "2",
+    "material": "Coal",
+    "timeOfEntry": "2026-06-18T17:03:01.541Z",
+    "timeOfExit": null
+  },
+  {
+    "_id": "v2",
+    "plateNumber": "CG07XY9876",
+    "driverName": "Suresh Singh",
+    "gate": "1",
+    "material": "Steel Pipes",
+    "timeOfEntry": "2026-06-18T16:03:01.543Z",
+    "timeOfExit": "2026-06-18T18:03:01.543Z"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "_id": "r1",
+    "category": "fire",
+    "title": "Fire Evacuation Protocol",
+    "content": "In case of fire, evacuate immediately via designated exit routes. Do not use lifts. Gather at the nearest assembly point and notify Fire Control Room (101)."
+  },
+  {
+    "_id": "r2",
+    "category": "gas",
+    "title": "Gas Leakage / CO Hazard Safety",
+    "content": "If carbon monoxide (CO) or gas alarms trigger, don your personal gas detector and evacuation escape mask immediately. Evacuate crosswind/upwind."
+  },
+  {
+    "_id": "r3",
+    "category": "electrical",
+    "title": "Electrical Shock & LOTO",
+    "content": "Apply Lock-Out Tag-Out (LOTO) procedures before commencing any machine maintenance. Use insulated tools and non-conductive safety gloves."
+  },
+  {
+    "_id": "r4",
+    "category": "ppe",
+    "title": "Mandatory PPE Protocol",
+    "content": "Workers must wear industrial safety helmets, steel-toed safety shoes, high-visibility reflective vests, and safety goggles inside active plant zones."
+  },
+  {
+    "_id": "r5",
+    "category": "first_aid",
+    "title": "First Aid for Thermal Burns",
+    "content": "For industrial heat/steam burns, immediately flush the area with clean, cold running water for 15-20 minutes. Cover loosely with sterile dressing. Call Plant Ambulance (102)."
+  }
+]

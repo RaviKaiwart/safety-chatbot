@@ -1,0 +1,37 @@
+[
+  {
+    "_id": "d1",
+    "name": "Safety Department",
+    "details": "Oversees safety compliance, hazard audits, and PPE rules across plant zones.",
+    "contactNumber": "+91-788-2894501",
+    "email": "safety@bhilaisteel.co.in"
+  },
+  {
+    "_id": "d2",
+    "name": "Security Department",
+    "details": "Manages gate entry passes, vehicle registrations, and parameter control.",
+    "contactNumber": "+91-788-2894502",
+    "email": "security@bhilaisteel.co.in"
+  },
+  {
+    "_id": "d3",
+    "name": "Medical Department",
+    "details": "Main Plant Medical post, runs occupational health clinic and ambulance service.",
+    "contactNumber": "+91-788-2894503",
+    "email": "medical@bhilaisteel.co.in"
+  },
+  {
+    "_id": "d4",
+    "name": "Maintenance Department",
+    "details": "Handles structural repairs, machinery breakdown assistance, and electrical isolation.",
+    "contactNumber": "+91-788-2894504",
+    "email": "maintenance@bhilaisteel.co.in"
+  },
+  {
+    "_id": "d5",
+    "name": "Production Department",
+    "details": "Monitors Blast Furnace operations, coke ovens, and raw material handling schedules.",
+    "contactNumber": "+91-788-2894505",
+    "email": "production@bhilaisteel.co.in"
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "c1",
+    "name": "Fire Control Room",
+    "title": "Fire & Rescue Service",
+    "contactNumber": "101"
+  },
+  {
+    "_id": "c2",
+    "name": "Plant Ambulance Dispatch",
+    "title": "Medical Emergency Services",
+    "contactNumber": "102"
+  },
+  {
+    "_id": "c3",
+    "name": "Safety Officer On-Duty",
+    "title": "Main Plant Safety Office",
+    "contactNumber": "+91-98765-43210"
+  },
+  {
+    "_id": "c4",
+    "name": "Security Main Control Room",
+    "title": "Plant Perimeter & Gate Security",
+    "contactNumber": "+91-98765-43211"
+  }
+]

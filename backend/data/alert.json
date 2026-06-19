@@ -1,0 +1,29 @@
+[
+  {
+    "_id": "a1",
+    "reporter": "worker",
+    "category": "Accident",
+    "description": "Blast Furnace 1 ke paas minor oil spill hua tha.",
+    "location": "Blast Furnace 1 Area",
+    "status": "Verified",
+    "timestamp": "2026-06-15T00:00:00.000Z"
+  },
+  {
+    "_id": "a2",
+    "reporter": "worker",
+    "category": "Accident",
+    "description": "Gate 3 par ek truck reverse karte time boundary wall se takraya.",
+    "location": "Gate 3 Exit",
+    "status": "Verified",
+    "timestamp": "2026-06-16T00:00:00.000Z"
+  },
+  {
+    "_id": "a3",
+    "reporter": "worker",
+    "category": "Fire",
+    "description": "Gate 1 battery room safety check requires urgent review due to minor heat buildup.",
+    "location": "Gate 1 Battery Room",
+    "status": "Pending",
+    "timestamp": "2026-06-18T18:03:01.545Z"
+  }
+]
