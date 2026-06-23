@@ -25,6 +25,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/safety_chatbot', {})
 
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
+  name: { type: String },
+  email: { type: String },
   password: { type: String, required: true },
   role: { type: String, enum: ['user', 'admin'], default: 'user' }
 });
@@ -187,13 +189,13 @@ const requireAdmin = (req, res, next) => {
 
 app.post('/api/auth/register', async (req, res) => {
   try {
-    const { username, password, role } = req.body;
+    const { username, password, role, name, email } = req.body;
     if (!username || !password) return res.status(400).json({ error: 'Required fields' });
     const existingUser = await db.findOne(User, { username });
-    if (existingUser) return res.status(400).json({ error: 'Username exists' });
+    if (existingUser) return res.status(400).json({ error: 'Email/Username already exists' });
     const hashedPassword = await bcrypt.hash(password, 10);
     const userRole = role === 'admin' ? 'admin' : 'user';
-    await db.create(User, { username, password: hashedPassword, role: userRole });
+    await db.create(User, { username, name, email, password: hashedPassword, role: userRole });
     res.status(201).json({ message: 'Registered' });
   } catch (error) {
     res.status(500).json({ error: 'Registration failed' });
@@ -432,7 +434,7 @@ INSTRUCTIONS:
 5. Answer general knowledge too.`;
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash",
+      model: "gemini-3.1-flash-lite",
       systemInstruction: systemPrompt
     });
 
@@ -484,7 +486,7 @@ app.post('/api/admin/chat', authenticateToken, requireAdmin, async (req, res) =>
   try {
     const { messages, userMsg, contextStats } = req.body;
     const systemPrompt = `Tum AI-Based Industrial Safety Chatbot ho. Hinglish mein jawab do. Data: ${contextStats?.pending} pending, ${contextStats?.verified} verified, ${contextStats?.fire} fires.`;
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash", systemInstruction: systemPrompt });
+    const model = genAI.getGenerativeModel({ model: "gemini-3.1-flash-lite", systemInstruction: systemPrompt });
     const chat = model.startChat({
       history: messages.map(m => ({ role: m.role === 'user' ? 'user' : 'model', parts: [{ text: m.content }] }))
     });
