@@ -28,5 +28,11 @@
     "category": "first_aid",
     "title": "First Aid for Thermal Burns",
     "content": "For industrial heat/steam burns, immediately flush the area with clean, cold running water for 15-20 minutes. Cover loosely with sterile dressing. Call Plant Ambulance (102)."
+  },
+  {
+    "_id": "r6",
+    "category": "ppe",
+    "title": "Official Bhilai Steel Plant Equipment List",
+    "content": "Official Bhilai Steel Plant Safety Equipment List:\n- **Head Protection**: Fibre helmet (protects against falling objects, hitting against objects), Crash helmet (for riding high-speed vehicles).\n- **Face Protection**: Plastic face shield (against chemical splashes, metal splash, dust, sparks), Welding helmet (heat, UV radiation, sparks for unstable positions), Welding screen (for stable positions).\n- **Eye Protection**: Welding glass [dark] (UV radiation, sparks), Green coloured goggle (heat/IR radiation for furnace), Spectacle type goggles with shatter proof lens (foreign bodies, dust, metal chips), Smelters' Furnace observation Glass (heat/IR radiation for liquid metal), Welder's/Gas cutter goggle (UV radiation), Acid/alkali proof rubber goggles (chemical splashes).\n- **Ear Protection**: Ear plugs, Ear muff (against high noise level).\n- **Nose Protection**: Dust respirator (against dust and powder particles).\n- **Body Protection**: Asbestos apron (Heat radiation), PVC apron / PVC suit (Splashing of chemicals), Flame Retardant suits (splashes of liquid metal, slag, shooting flames), Canvas apron / Canvas coat (sparks, metallic chips, radiant heat).\n- **Hand Protection**: Leather gloves (Cuts due to handling), Asbestos gloves (Heat radiation), Acid/alkali proof rubber gloves (handling acids), Electrical resistance gloves (Electric shock), Protective cream (Skin diseases).\n- **Leg Protection**: Canvas anklet/Khakki woolen patti (flying sparks, hot flue dust entering boot), Leather sole safety boots / DMS safety boot (striking/falling objects, sharp/hot objects).\n- **General Protection**: Safety belt (Falling from height), Rubber matting (Electrical shock while working on electrical installations)."
   }
 ]

@@ -2,21 +2,13 @@
   {
     "_id": "u1",
     "username": "worker",
-    "password": "$2b$10$v39WyqXpz/gpVQ4mDVPGnezmgZ1laKSvbRZH4Nxg6vOLlt/dwasVu",
+    "password": "$2b$10$3eu/TRj/.iDkSI9ZEBW0PeY/C4BBXPYKjCQ2EspselT5z/fJS6V4C",
     "role": "user"
   },
   {
     "_id": "u2",
     "username": "admin",
-    "password": "$2b$10$btnTA7810RKRL0PdlqxHQ.lkjl/4pLGs7Vqj4.fAI6OYhSLuq3fza",
+    "password": "$2b$10$w5hrs/VjX.30ZJv2VN642eizlCScZAbDxcTX.o6a1dxBR/bRYBDYW",
     "role": "admin"
-  },
-  {
-    "_id": "6a343d90cf708fa1eff00de0",
-    "username": "testworker",
-    "password": "$2b$10$5v4ds.EXjO8V/SOpxu90A.Vzpfk0S/PsvR2ltR49EPULwhwR3LKVG",
-    "role": "user",
-    "timestamp": "2026-06-18T18:48:48.964Z",
-    "timeOfEntry": "2026-06-18T18:48:48.964Z"
   }
 ]

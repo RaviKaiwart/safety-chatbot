@@ -23,7 +23,77 @@
     "category": "Fire",
     "description": "Gate 1 battery room safety check requires urgent review due to minor heat buildup.",
     "location": "Gate 1 Battery Room",
-    "status": "Pending",
-    "timestamp": "2026-06-18T18:03:01.545Z"
+    "status": "Verified",
+    "timestamp": "2026-06-21T07:19:37.896Z"
+  },
+  {
+    "_id": "6a37ccd97c9151dcc4e17c54",
+    "category": "Fire",
+    "location": "Block A, Boiler Room ",
+    "description": "Heavy smoke detected",
+    "reporter": "Anonymous Worker",
+    "status": "Verified",
+    "timestamp": "2026-06-21T11:36:57.046Z",
+    "emailSent": true
+  },
+  {
+    "_id": "6a37cdb47c9151dcc4e17c55",
+    "category": "Fire",
+    "location": "Block A, Boiler Room ",
+    "description": "Heavy smoke detected",
+    "reporter": "Anonymous Worker",
+    "status": "Verified",
+    "timestamp": "2026-06-21T11:40:36.877Z",
+    "emailSent": true
+  },
+  {
+    "_id": "6a38b68095e860993fa6e0ff",
+    "category": "Fire",
+    "location": "block c,floor 2",
+    "description": "fire",
+    "reporter": "Anonymous Worker",
+    "status": "Verified",
+    "timestamp": "2026-06-22T04:13:52.741Z",
+    "emailSent": true
+  },
+  {
+    "_id": "6a38eae5b6f0a4d43c17f0a6",
+    "category": "Accident",
+    "location": "block b",
+    "description": "adhashds",
+    "reporter": "Anonymous Worker",
+    "status": "Verified",
+    "timestamp": "2026-06-22T07:57:25.444Z",
+    "emailSent": true
+  },
+  {
+    "_id": "6a38ebd4b6f0a4d43c17f0a7",
+    "category": "Gas Leak",
+    "location": "block c,floor 2",
+    "description": "hskjsk",
+    "reporter": "Anonymous Worker",
+    "status": "Verified",
+    "timestamp": "2026-06-22T08:01:24.802Z",
+    "emailSent": true
+  },
+  {
+    "_id": "6a38ec08b6f0a4d43c17f0a8",
+    "category": "Gas Leak",
+    "location": "block c",
+    "description": "gas lleak",
+    "reporter": "Anonymous Worker",
+    "status": "Verified",
+    "timestamp": "2026-06-22T08:02:16.134Z",
+    "emailSent": true
+  },
+  {
+    "_id": "6a38fb35b6f0a4d43c17f0a9",
+    "category": "Fire",
+    "location": "block b,floor 2",
+    "description": "fire",
+    "reporter": "Anonymous Worker",
+    "status": "Verified",
+    "timestamp": "2026-06-22T09:07:01.878Z",
+    "emailSent": true
   }
 ]

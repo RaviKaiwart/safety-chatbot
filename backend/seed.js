@@ -17,9 +17,9 @@ const writeLocalBackup = () => {
     { _id: "u2", username: 'admin', password: hashedAdminPass, role: 'admin' }
   ], null, 2));
 
-  fs.writeFileSync(path.join(DATA_DIR, 'vehicle.json'), JSON.stringify([
-    { _id: "v1", plateNumber: 'CG04AB1234', driverName: 'Rajesh Kumar', gate: '2', material: 'Coal', timeOfEntry: new Date(Date.now() - 3600000).toISOString(), timeOfExit: null },
-    { _id: "v2", plateNumber: 'CG07XY9876', driverName: 'Suresh Singh', gate: '1', material: 'Steel Pipes', timeOfEntry: new Date(Date.now() - 7200000).toISOString(), timeOfExit: new Date().toISOString() }
+  fs.writeFileSync(path.join(DATA_DIR, 'document.json'), JSON.stringify([
+    { _id: "doc1", title: 'General Fire Safety Manual', category: 'Fire Safety', link: 'https://example.com/fire-safety-manual.pdf', content: 'Comprehensive guide for handling fire emergencies.' },
+    { _id: "doc2", title: 'PPE Standard Operating Procedure', category: 'PPE', link: 'https://example.com/ppe-sop.pdf', content: 'Detailed guidelines on mandatory PPE usage inside the plant.' }
   ], null, 2));
 
   fs.writeFileSync(path.join(DATA_DIR, 'department.json'), JSON.stringify([
@@ -42,7 +42,8 @@ const writeLocalBackup = () => {
     { _id: "r2", category: 'gas', title: 'Gas Leakage / CO Hazard Safety', content: 'If carbon monoxide (CO) or gas alarms trigger, don your personal gas detector and evacuation escape mask immediately. Evacuate crosswind/upwind.' },
     { _id: "r3", category: 'electrical', title: 'Electrical Shock & LOTO', content: 'Apply Lock-Out Tag-Out (LOTO) procedures before commencing any machine maintenance. Use insulated tools and non-conductive safety gloves.' },
     { _id: "r4", category: 'ppe', title: 'Mandatory PPE Protocol', content: 'Workers must wear industrial safety helmets, steel-toed safety shoes, high-visibility reflective vests, and safety goggles inside active plant zones.' },
-    { _id: "r5", category: 'first_aid', title: 'First Aid for Thermal Burns', content: 'For industrial heat/steam burns, immediately flush the area with clean, cold running water for 15-20 minutes. Cover loosely with sterile dressing. Call Plant Ambulance (102).' }
+    { _id: "r5", category: 'first_aid', title: 'First Aid for Thermal Burns', content: 'For industrial heat/steam burns, immediately flush the area with clean, cold running water for 15-20 minutes. Cover loosely with sterile dressing. Call Plant Ambulance (102).' },
+    { _id: "r6", category: "ppe", title: "Official Bhilai Steel Plant Equipment List", content: "Official Bhilai Steel Plant Safety Equipment List:\n- **Head Protection**: Fibre helmet (protects against falling objects, hitting against objects), Crash helmet (for riding high-speed vehicles).\n- **Face Protection**: Plastic face shield (against chemical splashes, metal splash, dust, sparks), Welding helmet (heat, UV radiation, sparks for unstable positions), Welding screen (for stable positions).\n- **Eye Protection**: Welding glass [dark] (UV radiation, sparks), Green coloured goggle (heat/IR radiation for furnace), Spectacle type goggles with shatter proof lens (foreign bodies, dust, metal chips), Smelters' Furnace observation Glass (heat/IR radiation for liquid metal), Welder's/Gas cutter goggle (UV radiation), Acid/alkali proof rubber goggles (chemical splashes).\n- **Ear Protection**: Ear plugs, Ear muff (against high noise level).\n- **Nose Protection**: Dust respirator (against dust and powder particles).\n- **Body Protection**: Asbestos apron (Heat radiation), PVC apron / PVC suit (Splashing of chemicals), Flame Retardant suits (splashes of liquid metal, slag, shooting flames), Canvas apron / Canvas coat (sparks, metallic chips, radiant heat).\n- **Hand Protection**: Leather gloves (Cuts due to handling), Asbestos gloves (Heat radiation), Acid/alkali proof rubber gloves (handling acids), Electrical resistance gloves (Electric shock), Protective cream (Skin diseases).\n- **Leg Protection**: Canvas anklet/Khakki woolen patti (flying sparks, hot flue dust entering boot), Leather sole safety boots / DMS safety boot (striking/falling objects, sharp/hot objects).\n- **General Protection**: Safety belt (Falling from height), Rubber matting (Electrical shock while working on electrical installations)." }
   ], null, 2));
 
   fs.writeFileSync(path.join(DATA_DIR, 'alert.json'), JSON.stringify([
@@ -65,8 +66,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/safety_chatbot', {})
     role: { type: String, enum: ['user', 'admin'], default: 'user' }
   }));
 
-  const Vehicle = mongoose.model('Vehicle', new mongoose.Schema({
-    plateNumber: String, driverName: String, gate: String, material: String, timeOfEntry: Date, timeOfExit: Date
+  const Document = mongoose.model('Document', new mongoose.Schema({
+    title: String, category: String, link: String, content: String
   }));
 
   const Department = mongoose.model('Department', new mongoose.Schema({
@@ -87,7 +88,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/safety_chatbot', {})
 
   // Clean databases
   await User.deleteMany();
-  await Vehicle.deleteMany();
+  await Document.deleteMany();
   await Department.deleteMany();
   await EmergencyContact.deleteMany();
   await SafetyRule.deleteMany();
@@ -103,12 +104,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/safety_chatbot', {})
   ]);
   console.log('Users Seeded');
 
-  // Create Vehicles
-  await Vehicle.insertMany([
-    { plateNumber: 'CG04AB1234', driverName: 'Rajesh Kumar', gate: '2', material: 'Coal', timeOfEntry: new Date(Date.now() - 3600000), timeOfExit: null },
-    { plateNumber: 'CG07XY9876', driverName: 'Suresh Singh', gate: '1', material: 'Steel Pipes', timeOfEntry: new Date(Date.now() - 7200000), timeOfExit: new Date() }
+  // Create Documents
+  await Document.insertMany([
+    { title: 'General Fire Safety Manual', category: 'Fire Safety', link: 'https://example.com/fire-safety-manual.pdf', content: 'Comprehensive guide for handling fire emergencies.' },
+    { title: 'PPE Standard Operating Procedure', category: 'PPE', link: 'https://example.com/ppe-sop.pdf', content: 'Detailed guidelines on mandatory PPE usage inside the plant.' }
   ]);
-  console.log('Vehicles Seeded');
+  console.log('Documents Seeded');
 
   // Create Departments
   await Department.insertMany([
@@ -135,7 +136,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/safety_chatbot', {})
     { category: 'gas', title: 'Gas Leakage / CO Hazard Safety', content: 'If carbon monoxide (CO) or gas alarms trigger, don your personal gas detector and evacuation escape mask immediately. Evacuate crosswind/upwind.' },
     { category: 'electrical', title: 'Electrical Shock & LOTO', content: 'Apply Lock-Out Tag-Out (LOTO) procedures before commencing any machine maintenance. Use insulated tools and non-conductive safety gloves.' },
     { category: 'ppe', title: 'Mandatory PPE Protocol', content: 'Workers must wear industrial safety helmets, steel-toed safety shoes, high-visibility reflective vests, and safety goggles inside active plant zones.' },
-    { category: 'first_aid', title: 'First Aid for Thermal Burns', content: 'For industrial heat/steam burns, immediately flush the area with clean, cold running water for 15-20 minutes. Cover loosely with sterile dressing. Call Plant Ambulance (102).' }
+    { category: 'first_aid', title: 'First Aid for Thermal Burns', content: 'For industrial heat/steam burns, immediately flush the area with clean, cold running water for 15-20 minutes. Cover loosely with sterile dressing. Call Plant Ambulance (102).' },
+    { category: "ppe", title: "Official Bhilai Steel Plant Equipment List", content: "Official Bhilai Steel Plant Safety Equipment List:\n- **Head Protection**: Fibre helmet (protects against falling objects, hitting against objects), Crash helmet (for riding high-speed vehicles).\n- **Face Protection**: Plastic face shield (against chemical splashes, metal splash, dust, sparks), Welding helmet (heat, UV radiation, sparks for unstable positions), Welding screen (for stable positions).\n- **Eye Protection**: Welding glass [dark] (UV radiation, sparks), Green coloured goggle (heat/IR radiation for furnace), Spectacle type goggles with shatter proof lens (foreign bodies, dust, metal chips), Smelters' Furnace observation Glass (heat/IR radiation for liquid metal), Welder's/Gas cutter goggle (UV radiation), Acid/alkali proof rubber goggles (chemical splashes).\n- **Ear Protection**: Ear plugs, Ear muff (against high noise level).\n- **Nose Protection**: Dust respirator (against dust and powder particles).\n- **Body Protection**: Asbestos apron (Heat radiation), PVC apron / PVC suit (Splashing of chemicals), Flame Retardant suits (splashes of liquid metal, slag, shooting flames), Canvas apron / Canvas coat (sparks, metallic chips, radiant heat).\n- **Hand Protection**: Leather gloves (Cuts due to handling), Asbestos gloves (Heat radiation), Acid/alkali proof rubber gloves (handling acids), Electrical resistance gloves (Electric shock), Protective cream (Skin diseases).\n- **Leg Protection**: Canvas anklet/Khakki woolen patti (flying sparks, hot flue dust entering boot), Leather sole safety boots / DMS safety boot (striking/falling objects, sharp/hot objects).\n- **General Protection**: Safety belt (Falling from height), Rubber matting (Electrical shock while working on electrical installations)." }
   ]);
   console.log('Safety Rules Seeded');
 

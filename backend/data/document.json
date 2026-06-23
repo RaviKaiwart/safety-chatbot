@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "doc1",
+    "title": "General Fire Safety Manual",
+    "category": "Fire Safety",
+    "link": "https://example.com/fire-safety-manual.pdf",
+    "content": "Comprehensive guide for handling fire emergencies."
+  },
+  {
+    "_id": "doc2",
+    "title": "PPE Standard Operating Procedure",
+    "category": "PPE",
+    "link": "https://example.com/ppe-sop.pdf",
+    "content": "Detailed guidelines on mandatory PPE usage inside the plant."
+  }
+]
