@@ -374,7 +374,12 @@ function App() {
   };
 
   if (isAdminMode && token) {
-    return <AdminDashboard token={token} currentUser={currentUser} goBack={() => handleLogout()} />;
+    return <AdminDashboard 
+      token={token} 
+      currentUser={currentUser} 
+      onBackToChat={() => setIsAdminMode(false)}
+      onLogout={() => handleLogout()} 
+    />;
   }
 
   const handleLoginSuccess = (loginToken, loginUsername) => {
@@ -390,7 +395,13 @@ function App() {
       {currentPage === 'landing' && (
         <>
           <LandingPage 
-            onAdminClick={() => setCurrentPage('login')} 
+            onAdminClick={() => {
+              if (token) {
+                setIsAdminMode(true);
+              } else {
+                setCurrentPage('login');
+              }
+            }}
             messages={messages}
             sendMessage={sendMessage}
             isLoading={isLoading}
