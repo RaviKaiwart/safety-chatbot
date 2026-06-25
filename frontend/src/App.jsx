@@ -260,7 +260,7 @@ function App() {
     e.preventDefault();
     setLoginError('');
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch((import.meta.env.VITE_API_URL || '') + '/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(loginForm)
@@ -321,7 +321,7 @@ function App() {
         payload.imageBase64 = photoToSend;
       }
 
-      const res = await fetch('/api/chat', {
+      const res = await fetch((import.meta.env.VITE_API_URL || '') + '/api/chat', {
         method: 'POST',
         headers,
         body: JSON.stringify(payload)

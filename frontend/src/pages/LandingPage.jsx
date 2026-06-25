@@ -127,7 +127,7 @@ function LandingPage({
     try {
       console.log('Sending alert to backend...');
 
-      const response = await fetch('/api/alerts/public', {
+      const response = await fetch((import.meta.env.VITE_API_URL || '') + '/api/alerts/public', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

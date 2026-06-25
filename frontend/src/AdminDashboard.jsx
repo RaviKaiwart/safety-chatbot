@@ -87,23 +87,23 @@ export default function AdminDashboard({
       const headers = { 'Authorization': `Bearer ${token}` };
       
       if (activeNav === 'Dashboard' || activeNav === 'Analytics') {
-        const res = await fetch('/api/alerts', { headers });
+        const res = await fetch((import.meta.env.VITE_API_URL || '') + '/api/alerts', { headers });
         const data = await res.json();
         setAlerts(Array.isArray(data) ? data : []);
       } else if (activeNav === 'Smart Entry') {
-        const res = await fetch('/api/documents', { headers });
+        const res = await fetch((import.meta.env.VITE_API_URL || '') + '/api/documents', { headers });
         const data = await res.json();
         setDocuments(Array.isArray(data) ? data : []);
       } else if (activeNav === 'Contacts') {
-        const res = await fetch('/api/contacts', { headers });
+        const res = await fetch((import.meta.env.VITE_API_URL || '') + '/api/contacts', { headers });
         const data = await res.json();
         setContacts(Array.isArray(data) ? data : []);
       } else if (activeNav === 'Departments') {
-        const res = await fetch('/api/departments', { headers });
+        const res = await fetch((import.meta.env.VITE_API_URL || '') + '/api/departments', { headers });
         const data = await res.json();
         setDepartments(Array.isArray(data) ? data : []);
       } else if (activeNav === 'Safety Rules') {
-        const res = await fetch('/api/safetyrules', { headers });
+        const res = await fetch((import.meta.env.VITE_API_URL || '') + '/api/safetyrules', { headers });
         const data = await res.json();
         setRules(Array.isArray(data) ? data : []);
       }
@@ -153,7 +153,7 @@ export default function AdminDashboard({
   // Verification operations
   const handleVerifyAlert = async (id, status) => {
     try {
-      const res = await fetch(`/api/alerts/${id}/verify`, {
+      const res = await fetch((import.meta.env.VITE_API_URL || '') + `/api/alerts/${id}/verify`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ status })
@@ -181,9 +181,9 @@ export default function AdminDashboard({
     const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
     try {
       if (editingId) {
-        await fetch(`/api/${endpoint}/${editingId}`, { method: 'PUT', headers, body: JSON.stringify(formState) });
+        await fetch((import.meta.env.VITE_API_URL || '') + `/api/${endpoint}/${editingId}`, { method: 'PUT', headers, body: JSON.stringify(formState) });
       } else {
-        await fetch(`/api/${endpoint}`, { method: 'POST', headers, body: JSON.stringify(formState) });
+        await fetch((import.meta.env.VITE_API_URL || '') + `/api/${endpoint}`, { method: 'POST', headers, body: JSON.stringify(formState) });
       }
       setFormState(emptyForm);
       setEditingId(null);
@@ -193,7 +193,7 @@ export default function AdminDashboard({
 
   const crudDelete = async (endpoint, id) => {
     try {
-      await fetch(`/api/${endpoint}/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+      await fetch((import.meta.env.VITE_API_URL || '') + `/api/${endpoint}/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
       fetchData();
     } catch (e) { console.error(e); }
   };
@@ -219,7 +219,7 @@ export default function AdminDashboard({
     setChatHistory((prev) => [...prev, { role: "admin", text: userMsg }]);
     setAiLoading(true);
     try {
-      const res = await fetch("/api/admin/chat", {
+      const res = await fetch((import.meta.env.VITE_API_URL || '') + "/api/admin/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify({
