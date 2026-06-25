@@ -10,5 +10,14 @@
     "username": "admin",
     "password": "$2b$10$w5hrs/VjX.30ZJv2VN642eizlCScZAbDxcTX.o6a1dxBR/bRYBDYW",
     "role": "admin"
+  },
+  {
+    "_id": "6a3acaee39830c6dc1651c8d",
+    "username": "ravikaiwart2004@gmail.com",
+    "name": "Ravi Kumar kaiwart",
+    "email": "ravikaiwart2004@gmail.com",
+    "password": "$2b$10$agzEekUKZwmDpvEuAjL.qeDultpl6SBN6i/EUNuwezp1ftBnj7H0i",
+    "role": "admin",
+    "timestamp": "2026-06-23T18:05:34.131Z"
   }
 ]

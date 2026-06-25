@@ -17,7 +17,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/safety_chatbot', {})
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/safety_chatbot', {})
   .then(() => console.log('✅ MongoDB Connected'))
   .catch(err => console.log('⚠️ MongoDB Connection Error: Using Local JSON DB fallback instead.'));
 
@@ -498,8 +498,12 @@ app.post('/api/admin/chat', authenticateToken, requireAdmin, async (req, res) =>
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
-  console.log(`📧 Email service ready`);
-  console.log(`🌐 Frontend: ${process.env.FRONTEND_URL || 'http://localhost:5173'}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`✅ Server running on port ${PORT}`);
+    console.log(`📧 Email service ready`);
+    console.log(`🌐 Frontend: ${process.env.FRONTEND_URL || 'http://localhost:5173'}`);
+  });
+}
+
+module.exports = app;

@@ -260,7 +260,7 @@ function App() {
     e.preventDefault();
     setLoginError('');
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
+      const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(loginForm)
@@ -288,6 +288,7 @@ function App() {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
     setIsAdminMode(false);
+    setCurrentPage('landing');
   };
 
   const sendMessage = async (text, isEmergencyFlag = false) => {
@@ -320,7 +321,7 @@ function App() {
         payload.imageBase64 = photoToSend;
       }
 
-      const res = await fetch('http://localhost:5000/api/chat', {
+      const res = await fetch('/api/chat', {
         method: 'POST',
         headers,
         body: JSON.stringify(payload)
@@ -377,8 +378,19 @@ function App() {
     return <AdminDashboard 
       token={token} 
       currentUser={currentUser} 
-      onBackToChat={() => setIsAdminMode(false)}
       onLogout={() => handleLogout()} 
+      messages={messages}
+      sendMessage={sendMessage}
+      isLoading={isLoading}
+      language={language}
+      setLanguage={setLanguage}
+      recentChats={recentChats}
+      clearChat={() => setMessages([])}
+      isRecording={isRecording}
+      toggleRecording={toggleRecording}
+      onAttachClick={() => fileInputRef.current?.click()}
+      capturedPhoto={capturedPhoto}
+      clearPhoto={() => setCapturedPhoto(null)}
     />;
   }
 
@@ -389,6 +401,7 @@ function App() {
     localStorage.setItem('username', loginUsername);
     setIsAdminMode(true);
   };
+
 
   return (
     <>

@@ -47,7 +47,7 @@ function LoginPage({ onLogin, onBack }) {
         return;
       }
       try {
-        const res = await fetch('http://localhost:5000/api/auth/register', {
+        const res = await fetch('/api/auth/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, email, username: email, password, role: 'admin' })
@@ -84,7 +84,7 @@ function LoginPage({ onLogin, onBack }) {
       }
 
       try {
-        const res = await fetch('http://localhost:5000/api/auth/login', {
+        const res = await fetch('/api/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password })

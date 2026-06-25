@@ -87,7 +87,8 @@ function LandingPage({
   toggleRecording,
   onAttachClick,
   capturedPhoto,
-  clearPhoto
+  clearPhoto,
+  embedded = false
 }) {
   const [chatInput, setChatInput] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
@@ -126,7 +127,7 @@ function LandingPage({
     try {
       console.log('Sending alert to backend...');
 
-      const response = await fetch('http://localhost:5000/api/alerts/public', {
+      const response = await fetch('/api/alerts/public', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -177,8 +178,9 @@ function LandingPage({
   };
 
   return (
-    <div className="raksha-app">
-      <aside className={`raksha-sidebar ${sidebarOpen ? 'open' : ''}`}>
+    <div className={`raksha-app ${embedded ? 'embedded-mode' : ''}`} style={embedded ? { height: '100%' } : {}}>
+      {!embedded && (
+        <aside className={`raksha-sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="raksha-brand">
           <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
             <path d="M15 2 L27 7 V14 C27 21.5 22 26.5 15 28 C8 26.5 3 21.5 3 14 V7 Z" stroke="#F4B400" strokeWidth="2" fill="none" />
@@ -226,10 +228,12 @@ function LandingPage({
         <button className="raksha-admin-login" onClick={onAdminClick}>
           🔒 {t.admin}
         </button>
-      </aside>
+        </aside>
+      )}
 
-      <main className="raksha-main">
-        <div className="raksha-topbar">
+      <main className="raksha-main" style={embedded ? { marginLeft: 0, paddingLeft: 0, height: '100%', width: '100%' } : {}}>
+        {!embedded && (
+          <div className="raksha-topbar">
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <button className="raksha-menu-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>☰</button>
             <div>
@@ -258,8 +262,9 @@ function LandingPage({
             </div>
           </div>
         </div>
+        )}
 
-        <div className="raksha-content">
+        <div className="raksha-content" style={embedded ? { paddingTop: '20px' } : {}}>
           {messages.length === 0 ? (
             <>
               <div className="raksha-greeting">
