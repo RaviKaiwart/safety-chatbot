@@ -13,15 +13,30 @@ const I18N = {
     greeting: "Namaste. What do you need help with today?",
     greetsub: "Select a category, or type your question below in English, Hindi or Hinglish.",
     ph: "Ask anything about safety...", raise: "Raise Alert", standby: "Standby",
-    "c-fire": "Fire Safety", "c-fire-q": '"Fire hone par kya kare?"',
-    "c-gas": "Gas Leak", "c-gas-q": '"Gas leak hone par kya kare?"',
-    "c-elec": "Electrical Hazard", "c-elec-q": '"Electric shock lagne par first aid kya hai?"',
-    "c-ppe": "PPE Rules", "c-ppe-q": '"PPE mandatory hai kya?"',
-    "c-aid": "First Aid", "c-aid-q": '"Helmet kyu zaruri hai?"',
+    pending: "Pending",
+    backToChat: "Back to Chat",
+    "c-fire": "Fire Safety", "c-fire-q": '"What to do in case of fire?"',
+    "c-gas": "Gas Leak", "c-gas-q": '"What to do during a gas leak?"',
+    "c-elec": "Electrical Hazard", "c-elec-q": '"First aid for electric shock?"',
+    "c-ppe": "PPE Rules", "c-ppe-q": '"Is PPE mandatory?"',
+    "c-aid": "First Aid", "c-aid-q": '"Why is helmet necessary?"',
     "c-contacts": "Emergency Contacts", "c-contacts-q": "Fire · Ambulance · Security · Medical",
     "c-dept": "Department Information", "c-dept-q": "Safety · Security · Medical · Maintenance",
     "c-docs": "Safety Documents", "c-docs-q": "SOPs · Manuals · Guidelines",
-    toast: "Alert submitted - Officer notified via email."
+    toast: "Alert submitted — Officer notified via email.",
+    modalTitle: "🚨 Report an Emergency",
+    modalSub: "This alert will be sent to officer via email for verification.",
+    alertType: "Alert Type", location: "Location", description: "Description",
+    cancel: "Cancel", submit: "Submit Alert", sending: "Sending...",
+    workflow: "ℹ️ Workflow:", workflowDesc: "Alert → Email to Officer → Officer Approves/Rejects → Department Notified",
+    "legend-fire": "Fire equipment", "legend-warn": "Warning",
+    "legend-ppe": "Mandatory (PPE)", "legend-safe": "Emergency / safe condition",
+    "legend-info": "Information",
+    "tag-Fire equipment": "Fire equipment", "tag-Warning": "Warning",
+    "tag-Mandatory": "Mandatory", "tag-Emergency": "Emergency", "tag-Information": "Information",
+    alertRegistered: "✅ Alert Registered & Email Sent to Officer",
+    fireteam: "Fire Team", ambulance: "Ambulance", security: "Security Control",
+    viewLink: "View"
   },
   hi: {
     eyebrow: "एआई-आधारित इंडस्ट्रियल सेफ्टी चैटबॉट",
@@ -32,15 +47,30 @@ const I18N = {
     greeting: "नमस्ते। आज आपको किस चीज़ में मदद चाहिए?",
     greetsub: "एक श्रेणी चुनें, या नीचे अपना सवाल हिंदी, अंग्रेज़ी या हिंग्लिश में लिखें।",
     ph: "सुरक्षा से जुड़ा कोई भी सवाल पूछें...", raise: "अलर्ट भेजें", standby: "सामान्य",
-    "c-fire": "अग्नि सुरक्षा", "c-fire-q": '"फायर होने पर क्या करें?"',
+    pending: "लंबित",
+    backToChat: "चैट पर वापस",
+    "c-fire": "अग्नि सुरक्षा", "c-fire-q": '"आग लगने पर क्या करें?"',
     "c-gas": "गैस लीक", "c-gas-q": '"गैस लीक होने पर क्या करें?"',
-    "c-elec": "विद्युत खतरा", "c-elec-q": '"बिजली का झटका लगने पर फर्स्ट एड क्या है?"',
+    "c-elec": "विद्युत खतरा", "c-elec-q": '"बिजली के झटके पर प्राथमिक उपचार?"',
     "c-ppe": "पीपीई नियम", "c-ppe-q": '"पीपीई पहनना ज़रूरी है क्या?"',
     "c-aid": "प्राथमिक उपचार", "c-aid-q": '"हेलमेट क्यों ज़रूरी है?"',
     "c-contacts": "आपातकालीन संपर्क", "c-contacts-q": "फायर · एम्बुलेंस · सुरक्षा · मेडिकल",
     "c-dept": "विभाग जानकारी", "c-dept-q": "सुरक्षा · सिक्योरिटी · मेडिकल · मेंटेनेंस",
     "c-docs": "सुरक्षा दस्तावेज़", "c-docs-q": "एसओपी · मैनुअल · गाइडलाइंस",
-    toast: "अलर्ट भेज दिया गया।"
+    toast: "अलर्ट भेज दिया गया।",
+    modalTitle: "🚨 आपात स्थिति रिपोर्ट करें",
+    modalSub: "यह अलर्ट ईमेल द्वारा अधिकारी को सत्यापन के लिए भेजा जाएगा।",
+    alertType: "अलर्ट का प्रकार", location: "स्थान", description: "विवरण",
+    cancel: "रद्द करें", submit: "अलर्ट भेजें", sending: "भेजा जा रहा है...",
+    workflow: "ℹ️ प्रक्रिया:", workflowDesc: "अलर्ट → अधिकारी को ईमेल → अधिकारी स्वीकृत/अस्वीकृत → विभाग को सूचना",
+    "legend-fire": "अग्नि उपकरण", "legend-warn": "चेतावनी",
+    "legend-ppe": "अनिवार्य (पीपीई)", "legend-safe": "आपातकाल / सुरक्षित स्थिति",
+    "legend-info": "जानकारी",
+    "tag-Fire equipment": "अग्नि उपकरण", "tag-Warning": "चेतावनी",
+    "tag-Mandatory": "अनिवार्य", "tag-Emergency": "आपातकाल", "tag-Information": "जानकारी",
+    alertRegistered: "✅ अलर्ट दर्ज हो गया और अधिकारी को ईमेल भेजा गया",
+    fireteam: "फायर टीम", ambulance: "एम्बुलेंस", security: "सुरक्षा नियंत्रण",
+    viewLink: "देखें"
   },
   hien: {
     eyebrow: "AI-Based Industrial Safety Chatbot",
@@ -51,6 +81,8 @@ const I18N = {
     greeting: "Namaste. Aaj kis baare mein madad chahiye?",
     greetsub: "Ek category chuno, ya niche apna sawaal English, Hindi ya Hinglish mein likho.",
     ph: "Koi bhi safety sawaal pucho...", raise: "Alert Bhejein", standby: "Standby",
+    pending: "Pending",
+    backToChat: "Back to Chat",
     "c-fire": "Fire Safety", "c-fire-q": '"Fire hone par kya kare?"',
     "c-gas": "Gas Leak", "c-gas-q": '"Gas leak hone par kya kare?"',
     "c-elec": "Electrical Hazard", "c-elec-q": '"Electric shock lagne par first aid kya hai?"',
@@ -59,7 +91,20 @@ const I18N = {
     "c-contacts": "Emergency Contacts", "c-contacts-q": "Fire · Ambulance · Security · Medical",
     "c-dept": "Department Information", "c-dept-q": "Safety · Security · Medical · Maintenance",
     "c-docs": "Safety Documents", "c-docs-q": "SOPs · Manuals · Guidelines",
-    toast: "Alert bhej diya gaya - Officer ko email mil gayi hai."
+    toast: "Alert bhej diya gaya - Officer ko email mil gayi hai.",
+    modalTitle: "🚨 Emergency Report Karein",
+    modalSub: "Yeh alert officer ko email ke zariye verification ke liye bheja jaayega.",
+    alertType: "Alert Type", location: "Location", description: "Description",
+    cancel: "Cancel", submit: "Alert Bhejo", sending: "Bheja ja raha hai...",
+    workflow: "ℹ️ Process:", workflowDesc: "Alert → Officer ko Email → Officer Approve/Reject kare → Department ko Inform kiya jaaye",
+    "legend-fire": "Fire equipment", "legend-warn": "Warning",
+    "legend-ppe": "Mandatory (PPE)", "legend-safe": "Emergency / safe condition",
+    "legend-info": "Information",
+    "tag-Fire equipment": "Fire equipment", "tag-Warning": "Warning",
+    "tag-Mandatory": "Mandatory", "tag-Emergency": "Emergency", "tag-Information": "Information",
+    alertRegistered: "✅ Alert Register ho gaya & Officer ko Email Bheja Gaya",
+    fireteam: "Fire Team", ambulance: "Ambulance", security: "Security Control",
+    viewLink: "View"
   }
 };
 
@@ -88,9 +133,10 @@ function LandingPage({
   onAttachClick,
   capturedPhoto,
   clearPhoto,
+  chatInput,
+  setChatInput,
   embedded = false
 }) {
-  const [chatInput, setChatInput] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [beaconActive, setBeaconActive] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -100,6 +146,20 @@ function LandingPage({
   const messagesEndRef = useRef(null);
 
   const t = I18N[language] || I18N.en;
+  const inputRef = useRef(null);
+
+  // Focus input automatically when a photo is captured so Enter key works for sending
+  useEffect(() => {
+    if (capturedPhoto && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [capturedPhoto]);
+
+  // Persist language on change
+  const handleSetLanguage = (lang) => {
+    setLanguage(lang);
+    localStorage.setItem('language', lang);
+  };
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -110,8 +170,9 @@ function LandingPage({
   };
 
   const handleSend = () => {
-    if (chatInput.trim()) {
-      sendMessage(chatInput);
+    // Allow send if there's text OR a photo attached
+    if (chatInput.trim() || capturedPhoto) {
+      sendMessage(chatInput.trim() || '📷 [Image attached]');
       setChatInput('');
     }
   };
@@ -218,16 +279,16 @@ function LandingPage({
 
         <div style={{ flex: 1 }}></div>
 
-        <div className="raksha-emergency-box">
-          <div className="raksha-side-label" style={{ margin: '0 0 8px' }}>{t.emergency}</div>
-          <div className="raksha-contact-row"><span>Fire Team</span><span className="num">101</span></div>
-          <div className="raksha-contact-row"><span>Ambulance</span><span className="num">102</span></div>
-          <div className="raksha-contact-row"><span>Security Control</span><span className="num">100</span></div>
-        </div>
-
         <button className="raksha-admin-login" onClick={onAdminClick}>
           🔒 {t.admin}
         </button>
+
+        <div className="raksha-emergency-box">
+          <div className="raksha-side-label" style={{ margin: '0 0 8px' }}>{t.emergency}</div>
+          <div className="raksha-contact-row"><span>{t.fireteam}</span><span className="num">101</span></div>
+          <div className="raksha-contact-row"><span>{t.ambulance}</span><span className="num">102</span></div>
+          <div className="raksha-contact-row"><span>{t.security}</span><span className="num">100</span></div>
+        </div>
         </aside>
       )}
 
@@ -244,9 +305,9 @@ function LandingPage({
 
           <div className="raksha-topbar-controls">
             <div className="raksha-lang-toggle">
-              <button className={language === 'en' ? 'active' : ''} onClick={() => setLanguage('en')}>EN</button>
-              <button className={language === 'hi' ? 'active' : ''} onClick={() => setLanguage('hi')}>HI</button>
-              <button className={language === 'hien' ? 'active' : ''} onClick={() => setLanguage('hien')}>Hinglish</button>
+              <button className={language === 'en' ? 'active' : ''} onClick={() => handleSetLanguage('en')}>EN</button>
+              <button className={language === 'hi' ? 'active' : ''} onClick={() => handleSetLanguage('hi')}>HI</button>
+              <button className={language === 'hien' ? 'active' : ''} onClick={() => handleSetLanguage('hien')}>Hinglish</button>
             </div>
             <div className="raksha-beacon-wrap">
               <button
@@ -257,7 +318,7 @@ function LandingPage({
               </button>
               <div className="raksha-beacon-label">
                 <b>{t.raise}</b>
-                <span>{beaconActive ? (language === 'hi' ? '1 लंबित' : '1 Pending') : t.standby}</span>
+                <span>{beaconActive ? `1 ${t.pending}` : t.standby}</span>
               </div>
             </div>
           </div>
@@ -273,11 +334,11 @@ function LandingPage({
               </div>
 
               <div className="raksha-legend">
-                <span><i style={{ background: '#E2483D' }}></i>Fire equipment</span>
-                <span><i style={{ background: '#F4B400' }}></i>Warning</span>
-                <span><i style={{ background: '#3E8FD0' }}></i>Mandatory (PPE)</span>
-                <span><i style={{ background: '#3FA66A' }}></i>Emergency / safe condition</span>
-                <span><i style={{ background: '#8A93A6' }}></i>Information</span>
+                <span><i style={{ background: '#E2483D' }}></i>{t['legend-fire']}</span>
+                <span><i style={{ background: '#F4B400' }}></i>{t['legend-warn']}</span>
+                <span><i style={{ background: '#3E8FD0' }}></i>{t['legend-ppe']}</span>
+                <span><i style={{ background: '#3FA66A' }}></i>{t['legend-safe']}</span>
+                <span><i style={{ background: '#8A93A6' }}></i>{t['legend-info']}</span>
               </div>
 
               <div className="raksha-grid">
@@ -289,7 +350,7 @@ function LandingPage({
                     onClick={() => handleCardClick(cat.prompt)}
                   >
                     <div className="raksha-card-badge">{cat.icon}</div>
-                    <span className="raksha-class-tag">{cat.tag}</span>
+                    <span className="raksha-class-tag">{t[`tag-${cat.tag}`] || cat.tag}</span>
                     <h3>{t[cat.titleKey]}</h3>
                     <p>{t[cat.qKey]}</p>
                   </button>
@@ -306,7 +367,23 @@ function LandingPage({
                   <div className="raksha-msg-content">
                     {msg.sender === 'user' ? (
                       <div style={{ whiteSpace: 'pre-wrap' }}>
-                        {msg.photo && <img src={msg.photo} alt="Attached" style={{ maxWidth: '100%', borderRadius: '8px', marginBottom: '8px' }} />}
+                        {msg.photo && (
+                          <a href={msg.photo} target="_blank" rel="noreferrer">
+                            <img
+                              src={msg.photo}
+                              alt="Attached"
+                              style={{
+                                maxHeight: '120px',
+                                maxWidth: '180px',
+                                borderRadius: '8px',
+                                marginBottom: '6px',
+                                display: 'block',
+                                cursor: 'pointer',
+                                objectFit: 'cover'
+                              }}
+                            />
+                          </a>
+                        )}
                         {msg.text}
                       </div>
                     ) : (
@@ -316,8 +393,11 @@ function LandingPage({
                     )}
 
                     {msg.hindiSubtitle && (
-                      <div className="hindi-subtitle" style={{ marginTop: '10px', fontSize: '0.9em', color: 'var(--paper-dim)' }}>
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.hindiSubtitle}</ReactMarkdown>
+                      <div className="hindi-subtitle-block">
+                        <div className="hindi-subtitle-divider" />
+                        <div className="hindi-subtitle-content">
+                          <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.hindiSubtitle}</ReactMarkdown>
+                        </div>
                       </div>
                     )}
 
@@ -337,7 +417,7 @@ function LandingPage({
 
                     {msg.alertCreated && (
                       <div style={{ marginTop: '8px', fontSize: '0.85rem', color: '#3FA66A', fontWeight: 'bold' }}>
-                        ✅ Alert Registered & Email Sent to Officer
+                        {t.alertRegistered}
                       </div>
                     )}
                   </div>
@@ -371,18 +451,24 @@ function LandingPage({
             </div>
           )}
           <div className="raksha-composer">
-            <button className="raksha-circle-btn" onClick={onAttachClick}>📎</button>
+            <button type="button" className="raksha-circle-btn" onClick={onAttachClick}>📎</button>
             <input
+              ref={inputRef}
               type="text"
               value={chatInput}
               onChange={(e) => setChatInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleSend();
+                }
+              }}
               placeholder={t.ph}
             />
-            <button className={`raksha-circle-btn ${isRecording ? 'active' : ''}`} onClick={toggleRecording}>
+            <button type="button" className={`raksha-circle-btn ${isRecording ? 'active' : ''}`} onClick={toggleRecording}>
               {isRecording ? '⏹' : '🎤'}
             </button>
-            <button className="raksha-circle-btn send" onClick={handleSend}>➤</button>
+            <button type="button" className="raksha-circle-btn send" onClick={handleSend}>➤</button>
           </div>
         </div>
       </main>
@@ -394,11 +480,11 @@ function LandingPage({
           }
         }}>
           <div className="raksha-modal">
-            <h3>🚨 Report an Emergency</h3>
-            <p className="raksha-modal-sub">This alert will be sent to officer via email for verification.</p>
+            <h3>{t.modalTitle}</h3>
+            <p className="raksha-modal-sub">{t.modalSub}</p>
 
             <div className="raksha-field">
-              <label>Alert Type *</label>
+              <label>{t.alertType} *</label>
               <select
                 value={alertForm.type}
                 onChange={(e) => setAlertForm({ ...alertForm, type: e.target.value })}
@@ -411,7 +497,7 @@ function LandingPage({
               </select>
             </div>
             <div className="raksha-field">
-              <label>Location *</label>
+              <label>{t.location} *</label>
               <input
                 type="text"
                 placeholder="e.g. Block C, Floor 2"
@@ -421,7 +507,7 @@ function LandingPage({
               />
             </div>
             <div className="raksha-field">
-              <label>Description *</label>
+              <label>{t.description} *</label>
               <textarea
                 placeholder="Briefly describe what's happening"
                 value={alertForm.description}
@@ -437,7 +523,7 @@ function LandingPage({
                 onClick={() => setModalOpen(false)}
                 disabled={submittingAlert}
               >
-                Cancel
+                {t.cancel}
               </button>
               <button
                 className="raksha-btn-primary"
@@ -445,7 +531,7 @@ function LandingPage({
                 disabled={submittingAlert}
                 style={{ opacity: submittingAlert ? 0.6 : 1 }}
               >
-                {submittingAlert ? 'Sending...' : 'Submit Alert'}
+                {submittingAlert ? t.sending : t.submit}
               </button>
             </div>
 
@@ -458,7 +544,7 @@ function LandingPage({
               fontSize: '11.5px',
               color: 'var(--paper-dim)'
             }}>
-              <strong style={{ color: 'var(--caution)' }}>ℹ️ Workflow:</strong> Alert → Email to Officer → Officer Approves/Rejects → Department Notified
+              <strong style={{ color: 'var(--caution)' }}>{t.workflow}</strong> {t.workflowDesc}
             </div>
           </div>
         </div>

@@ -15,7 +15,8 @@ const JWT_SECRET = process.env.JWT_SECRET || 'industrial_safety_secret_key_123';
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/safety_chatbot', {})
   .then(() => console.log('✅ MongoDB Connected'))
@@ -283,6 +284,16 @@ app.get('/api/alerts', authenticateToken, async (req, res) => {
   }
 });
 
+app.put('/api/alerts/:id/status', authenticateToken, requireAdmin, async (req, res) => {
+  try {
+    const { status } = req.body;
+    const alert = await db.findByIdAndUpdate(Alert, req.params.id, { status });
+    res.json(alert);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
 app.post('/api/alerts', authenticateToken, async (req, res) => {
   try {
     const alert = await db.create(Alert, {
@@ -426,10 +437,11 @@ ${JSON.stringify(context, null, 2)}
 INSTRUCTIONS:
 1. Use database for plant-specific queries.
 2. Type 'Report:' or 'Emergency:' saves alert.
-3. Language: ${userLang.toUpperCase()}
-   - english: Reply in English
-   - hindi: Reply in Hindi (Devanagari)
-   - hinglish: Reply in English, end with |SUBTITLE| Hindi translation
+3. Language mode is: ${userLang.toUpperCase()}
+   STRICTLY follow the rule for the current mode:
+   - en: Reply FULLY in English only. NEVER write any Hindi/Devanagari text. NEVER write the word "subtitle" or add any separator like |SUBTITLE|.
+   - hi: Reply FULLY in Hindi (Devanagari script) only. NEVER write any English text or |SUBTITLE|. ALWAYS use Arabic numerals (1, 2, 3) NOT Devanagari numerals (१, २, ३).
+   - hien: First write the FULL reply in HINGLISH (Hindi written in English alphabet, e.g. "Helmet pehnna zaroori hai"). Then on a NEW LINE write exactly: |SUBTITLE| Then below that write the pure HINDI (Devanagari script) translation using the SAME numbered/bullet list structure. ALWAYS use Arabic numerals (1, 2, 3) NOT Devanagari numerals in the Hindi translation too.
 4. Short, friendly markdown.
 5. Answer general knowledge too.`;
 

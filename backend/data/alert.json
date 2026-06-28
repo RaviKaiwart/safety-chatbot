@@ -95,5 +95,15 @@
     "status": "Verified",
     "timestamp": "2026-06-22T09:07:01.878Z",
     "emailSent": true
+  },
+  {
+    "_id": "6a4119159b951797b075803e",
+    "category": "Gas Leak",
+    "location": "Block c,floor b",
+    "description": "gas leak",
+    "reporter": "Anonymous Worker",
+    "status": "Pending",
+    "timestamp": "2026-06-28T12:52:37.331Z",
+    "emailSent": true
   }
 ]

@@ -28,6 +28,15 @@
   display: flex;
   flex-direction: column;
   background: var(--ink);
+  height: 100%;
+  width: 100%;
+}
+
+.raksha-app.embedded-mode .raksha-main {
+  min-height: 0;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .raksha-app * { box-sizing: border-box; }
@@ -650,4 +659,65 @@
   }
   .raksha-sidebar.open { transform: translateX(0); }
   .raksha-menu-btn { display: flex !important; }
+}
+
+/* ─── Hindi Subtitle Block (Hinglish mode) ─── */
+.hindi-subtitle-block {
+  margin-top: 14px;
+}
+
+.hindi-subtitle-divider {
+  width: 100%;
+  height: 0;
+  border: none;
+  border-top: 1.5px dashed rgba(169, 167, 157, 0.35);
+  margin-bottom: 12px;
+}
+
+/* Shared base for both English reply and Hindi subtitle */
+.markdown-body,
+.hindi-subtitle-content {
+  font-size: 0.88em;
+  line-height: 1.85;
+  font-family: 'Noto Sans', sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.markdown-body {
+  color: #ddd8cc;
+}
+
+.hindi-subtitle-content {
+  color: #b8a98a;
+}
+
+.markdown-body p,
+.hindi-subtitle-content p {
+  margin: 0 0 4px;
+}
+
+.markdown-body ol,
+.markdown-body ul,
+.hindi-subtitle-content ol,
+.hindi-subtitle-content ul {
+  margin: 4px 0;
+  padding-left: 1.4em;
+}
+
+.markdown-body li,
+.hindi-subtitle-content li {
+  margin-bottom: 4px;
+}
+
+.markdown-body strong,
+.hindi-subtitle-content strong {
+  font-weight: 600;
+}
+
+.markdown-body strong {
+  color: #f0e8d4;
+}
+
+.hindi-subtitle-content strong {
+  color: #d4bc8f;
 }

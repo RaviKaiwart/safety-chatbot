@@ -4,8 +4,7 @@ import {
   BarChart, Bar, Legend, PieChart, Pie, Cell 
 } from 'recharts';
 import { AlertTriangle, Clock, CheckCircle, Activity, TrendingUp, TrendingDown } from 'lucide-react';
-
-export default function AnalyticsView({ alerts, weeklyData, weeklyLabels, fireCount, gasCount, electricCount, otherCount, pendingAlerts, verifiedAlerts, language = "en" }) {
+export default function AnalyticsView({ alerts, weeklyData, weeklyLabels, fireCount, gasCount, electricCount, otherCount, pendingAlerts, verifiedAlerts, language = "en", onVerifyAlert }) {
   const langKey = (language === 'hi' || language === 'hien') ? 'hi' : 'en';
   const t = (text) => {
     const dict = {
@@ -17,7 +16,34 @@ export default function AnalyticsView({ alerts, weeklyData, weeklyLabels, fireCo
       "Summary Stats": { hi: "सारांश आँकड़े" },
       "Alerts by Status": { hi: "स्थिति अनुसार अलर्ट" },
       "Recent Verified Alerts": { hi: "हाल के सत्यापित अलर्ट" },
-      "AI Risk Analysis": { hi: "एआई जोखिम विश्लेषण" }
+      "AI Risk Analysis": { hi: "एआई जोखिम विश्लेषण" },
+      "Total Alerts": { hi: "कुल अलर्ट" },
+      "Pending Alerts": { hi: "लंबित अलर्ट" },
+      "Verified Alerts": { hi: "सत्यापित अलर्ट" },
+      "Avg Response Time": { hi: "औसत प्रतिक्रिया समय" },
+      "Last 7 days performance": { hi: "पिछले 7 दिनों का प्रदर्शन" },
+      "Avg Verification": { hi: "औसत सत्यापन" },
+      "AI Accuracy Rate": { hi: "एआई सटीकता दर" },
+      "Protocol Compliance": { hi: "प्रोटोकॉल अनुपालन" },
+      "False Alarm Rate": { hi: "झूठा अलार्म दर" },
+      "Weekly Category Performance": { hi: "साप्ताहिक श्रेणी प्रदर्शन" },
+      "Alerts type breakdown over time": { hi: "समय के साथ अलर्ट प्रकार का विश्लेषण" },
+      "Alerts by Category": { hi: "श्रेणी के अनुसार अलर्ट" },
+      "Distribution breakdown": { hi: "वितरण विश्लेषण" },
+      "Recent Alerts": { hi: "हाल के अलर्ट" },
+      "Latest incoming hazard notifications": { hi: "नवीनतम आने वाली खतरे की सूचनाएं" },
+      "Alert ID": { hi: "अलर्ट आईडी" },
+      "Reporter": { hi: "रिपोर्टर" },
+      "Location": { hi: "स्थान" },
+      "Category": { hi: "श्रेणी" },
+      "Status": { hi: "स्थिति" },
+      "Time": { hi: "समय" },
+      "Action": { hi: "कार्रवाई" },
+      "Approve": { hi: "स्वीकार करें" },
+      "Reject": { hi: "अस्वीकार करें" },
+      "Verified": { hi: "सत्यापित" },
+      "Rejected": { hi: "अस्वीकृत" },
+      "Pending": { hi: "लंबित" }
     };
     return dict[text] && dict[text][langKey] ? dict[text][langKey] : text;
   };
@@ -92,25 +118,25 @@ export default function AnalyticsView({ alerts, weeklyData, weeklyLabels, fireCo
         <div style={styles.statCard("#1B2025")}>
           <div style={styles.statIconWrap("#F4B400")}><Activity size={18} /></div>
           <div style={styles.statTrend(true)}><TrendingUp size={14} /> +12.5%</div>
-          <div style={styles.statTitle}>Total Alerts</div>
+          <div style={styles.statTitle}>{t("Total Alerts")}</div>
           <div style={styles.statValue}>{alerts.length}</div>
         </div>
         <div style={styles.statCard("#251018")}>
           <div style={styles.statIconWrap("#e24b4a")}><AlertTriangle size={18} /></div>
           <div style={styles.statTrend(false)}><TrendingDown size={14} /> -2.4%</div>
-          <div style={styles.statTitle}>Pending Alerts</div>
+          <div style={styles.statTitle}>{t("Pending Alerts")}</div>
           <div style={styles.statValue}>{pendingAlerts.length}</div>
         </div>
         <div style={styles.statCard("#0a1e14")}>
           <div style={styles.statIconWrap("#1d9e75")}><CheckCircle size={18} /></div>
           <div style={styles.statTrend(true)}><TrendingUp size={14} /> +8.2%</div>
-          <div style={styles.statTitle}>Verified Alerts</div>
+          <div style={styles.statTitle}>{t("Verified Alerts")}</div>
           <div style={styles.statValue}>{verifiedAlerts.length}</div>
         </div>
         <div style={styles.statCard("#251a08")}>
           <div style={styles.statIconWrap("#ef9f27")}><Clock size={18} /></div>
           <div style={styles.statTrend(true)}><TrendingUp size={14} /> +4.3%</div>
-          <div style={styles.statTitle}>Avg Response Time</div>
+          <div style={styles.statTitle}>{t("Avg Response Time")}</div>
           <div style={styles.statValue}>14m</div>
         </div>
       </div>
@@ -120,7 +146,7 @@ export default function AnalyticsView({ alerts, weeklyData, weeklyLabels, fireCo
         <div style={styles.card}>
           <div style={styles.cardHeader}>
             <span style={styles.cardTitle}>{t("Alerts & Resolution Trend")}</span>
-            <span style={styles.cardSub}>Last 7 days performance</span>
+            <span style={styles.cardSub}>{t("Last 7 days performance")}</span>
           </div>
           <div style={{ width: '100%', height: 300 }}>
             <ResponsiveContainer>
@@ -155,19 +181,19 @@ export default function AnalyticsView({ alerts, weeklyData, weeklyLabels, fireCo
           </div>
           <div style={{ marginTop: "20px" }}>
             <div style={styles.summaryBox("#F4B400")}>
-              <span style={{ fontSize: "12px", color: "#A9A79D" }}>Avg Verification</span>
+              <span style={{ fontSize: "12px", color: "#A9A79D" }}>{t("Avg Verification")}</span>
               <span style={{ fontSize: "14px", fontWeight: 600, color: "#F4B400" }}>14 min</span>
             </div>
             <div style={styles.summaryBox("#ef9f27")}>
-              <span style={{ fontSize: "12px", color: "#A9A79D" }}>AI Accuracy Rate</span>
+              <span style={{ fontSize: "12px", color: "#A9A79D" }}>{t("AI Accuracy Rate")}</span>
               <span style={{ fontSize: "14px", fontWeight: 600, color: "#ef9f27" }}>94.2%</span>
             </div>
             <div style={styles.summaryBox("#1d9e75")}>
-              <span style={{ fontSize: "12px", color: "#A9A79D" }}>Protocol Compliance</span>
+              <span style={{ fontSize: "12px", color: "#A9A79D" }}>{t("Protocol Compliance")}</span>
               <span style={{ fontSize: "14px", fontWeight: 600, color: "#1d9e75" }}>89.5%</span>
             </div>
             <div style={styles.summaryBox("#378add")}>
-              <span style={{ fontSize: "12px", color: "#A9A79D" }}>False Alarm Rate</span>
+              <span style={{ fontSize: "12px", color: "#A9A79D" }}>{t("False Alarm Rate")}</span>
               <span style={{ fontSize: "14px", fontWeight: 600, color: "#378add" }}>12.4%</span>
             </div>
           </div>
@@ -178,8 +204,8 @@ export default function AnalyticsView({ alerts, weeklyData, weeklyLabels, fireCo
       <div style={styles.row3}>
         <div style={styles.card}>
           <div style={styles.cardHeader}>
-            <span style={styles.cardTitle}>Weekly Category Performance</span>
-            <span style={styles.cardSub}>Alerts type breakdown over time</span>
+            <span style={styles.cardTitle}>{t("Weekly Category Performance")}</span>
+            <span style={styles.cardSub}>{t("Alerts type breakdown over time")}</span>
           </div>
           <div style={{ width: '100%', height: 300 }}>
             <ResponsiveContainer>
@@ -199,8 +225,8 @@ export default function AnalyticsView({ alerts, weeklyData, weeklyLabels, fireCo
 
         <div style={styles.card}>
           <div style={styles.cardHeader}>
-            <span style={styles.cardTitle}>Alerts by Category</span>
-            <span style={styles.cardSub}>Distribution breakdown</span>
+            <span style={styles.cardTitle}>{t("Alerts by Category")}</span>
+            <span style={styles.cardSub}>{t("Distribution breakdown")}</span>
           </div>
           <div style={{ width: '100%', height: 300, display: 'flex', justifyContent: 'center' }}>
             <ResponsiveContainer>
@@ -228,18 +254,19 @@ export default function AnalyticsView({ alerts, weeklyData, weeklyLabels, fireCo
       {/* ROW 4: Recent Alerts Table */}
       <div style={styles.card}>
         <div style={styles.cardHeader}>
-          <span style={styles.cardTitle}>Recent Alerts</span>
-          <span style={styles.cardSub}>Latest incoming hazard notifications</span>
+          <span style={styles.cardTitle}>{t("Recent Alerts")}</span>
+          <span style={styles.cardSub}>{t("Latest incoming hazard notifications")}</span>
         </div>
         <table style={styles.table}>
           <thead>
             <tr>
-              <th style={styles.th}>Alert ID</th>
-              <th style={styles.th}>Reporter</th>
-              <th style={styles.th}>Location</th>
-              <th style={styles.th}>Category</th>
-              <th style={styles.th}>Status</th>
-              <th style={styles.th}>Time</th>
+              <th style={styles.th}>{t("Alert ID")}</th>
+              <th style={styles.th}>{t("Reporter")}</th>
+              <th style={styles.th}>{t("Location")}</th>
+              <th style={styles.th}>{t("Category")}</th>
+              <th style={styles.th}>{t("Status")}</th>
+              <th style={styles.th}>{t("Time")}</th>
+              <th style={styles.th}>{t("Action")}</th>
             </tr>
           </thead>
           <tbody>
@@ -249,10 +276,34 @@ export default function AnalyticsView({ alerts, weeklyData, weeklyLabels, fireCo
                 <td style={styles.td}>{a.reporter || "Unknown"}</td>
                 <td style={styles.td}>{a.location}</td>
                 <td style={styles.td}>{a.category}</td>
+                <td style={styles.td}><span style={styles.badge(a.status)}>{t(a.status)}</span></td>
+                <td style={styles.td} style={{...styles.td, color: "#A9A79D"}}>{new Date(a.timestamp).toLocaleTimeString()}</td>
                 <td style={styles.td}>
-                  <span style={styles.badge(a.status)}>{a.status}</span>
+                  {a.status === 'Pending' ? (
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <button 
+                        onClick={() => onVerifyAlert(a._id, 'Verified')}
+                        style={{ background: '#3FA66A', color: '#fff', border: 'none', borderRadius: '4px', padding: '4px 10px', fontSize: '11px', fontWeight: 600, cursor: 'pointer', opacity: 0.9 }}
+                        onMouseOver={(e) => e.target.style.opacity = 1}
+                        onMouseOut={(e) => e.target.style.opacity = 0.9}
+                      >
+                        {t("Approve")}
+                      </button>
+                      <button 
+                        onClick={() => onVerifyAlert(a._id, 'Rejected')}
+                        style={{ background: '#e24b4a', color: '#fff', border: 'none', borderRadius: '4px', padding: '4px 10px', fontSize: '11px', fontWeight: 600, cursor: 'pointer', opacity: 0.9 }}
+                        onMouseOver={(e) => e.target.style.opacity = 1}
+                        onMouseOut={(e) => e.target.style.opacity = 0.9}
+                      >
+                        {t("Reject")}
+                      </button>
+                    </div>
+                  ) : a.status === 'Verified' ? (
+                    <span style={{ fontSize: '12px', color: '#3FA66A', fontWeight: 600 }}>✓ {t("Verified")}</span>
+                  ) : (
+                    <span style={{ fontSize: '12px', color: '#e24b4a', fontWeight: 600 }}>✕ {t("Rejected")}</span>
+                  )}
                 </td>
-                <td style={styles.td}>{new Date(a.timestamp).toLocaleDateString()}</td>
               </tr>
             ))}
           </tbody>

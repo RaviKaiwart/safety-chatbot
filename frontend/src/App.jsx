@@ -6,92 +6,23 @@ import AdminDashboard from './AdminDashboard';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 
-const translations = {
-  english: {
-    welcomeTitle: "Hello.",
-    welcomeDesc: "How can I help you today?",
-    newChat: "New chat",
-    recent: "Recent",
-    adminPanel: "Admin Panel",
-    adminLogin: "Admin Login",
-    askAnything: "Ask anything",
-    fireSafety: "🔥 Fire Safety",
-    gasLeak: "⚠️ Gas Leak",
-    ppeRules: "⛑ PPE Rules",
-    vehicleInfo: "🚛 Vehicle Info",
-    deptInfo: "🏢 Department Info",
-    emergencyContacts: "☎ Emergency Contacts",
-    raiseAlert: "🚨 Raise Alert",
-    vehicleSearch: "🚛 Vehicle Search",
-    safetyRules: "📚 Safety Rules",
-    sopDocs: "📄 SOP Documents",
-    logout: "Logout"
-  },
-  hindi: {
-    welcomeTitle: "नमस्ते।",
-    welcomeDesc: "आज मैं आपकी कैसे मदद कर सकता हूँ?",
-    newChat: "नई चैट",
-    recent: "पुरानी चैट",
-    adminPanel: "एडमिन पैनल",
-    adminLogin: "एडमिन लॉगिन",
-    askAnything: "कोई भी सवाल पूछें...",
-    fireSafety: "🔥 आग लगना",
-    gasLeak: "⚠️ गैस लीकेज",
-    ppeRules: "⛑ सेफ्टी के नियम",
-    vehicleInfo: "🚛 गाड़ी की जानकारी",
-    deptInfo: "🏢 डिपार्टमेंट की जानकारी",
-    emergencyContacts: "☎ इमरजेंसी नंबर",
-    raiseAlert: "🚨 अलर्ट भेजें",
-    vehicleSearch: "🚛 गाड़ी खोजें",
-    safetyRules: "📚 सेफ्टी नियम",
-    sopDocs: "📄 SOP डाक्यूमेंट्स",
-    logout: "लॉगआउट करें"
-  },
-  hinglish: {
-    welcomeTitle: "Hello.",
-    welcomeDesc: "Aaj main aapki kaise madad kar sakta hoon?",
-    newChat: "New chat",
-    recent: "Recent",
-    adminPanel: "Admin Panel",
-    adminLogin: "Admin Login",
-    askAnything: "Ask anything",
-    fireSafety: "🔥 Fire Safety",
-    gasLeak: "⚠️ Gas Leak",
-    ppeRules: "⛑ PPE Rules",
-    vehicleInfo: "🚛 Vehicle Info",
-    deptInfo: "🏢 Department Info",
-    emergencyContacts: "☎ Emergency Contacts",
-    raiseAlert: "🚨 Raise Alert",
-    vehicleSearch: "🚛 Vehicle Search",
-    safetyRules: "📚 Safety Rules",
-    sopDocs: "📄 Safety Documents"
-  }
-};
-
+// Helper to persist language in localStorage
+const getInitialLanguage = () => localStorage.getItem('language') || 'en';
 
 function App() {
   // App State
   const [currentPage, setCurrentPage] = useState('landing');
   const [isAdminMode, setIsAdminMode] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showEmergencyPanel, setShowEmergencyPanel] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [language, setLanguage] = useState('hinglish');
-  
-  const t = translations[language] || translations['hinglish'];
-  
-  const renderUI = (key) => {
-    if (language === 'hinglish') {
-      return (
-        <span style={{ display: 'inline-flex', flexDirection: 'column', lineHeight: '1.2', alignItems: 'inherit' }}>
-          <span>{translations.english[key]}</span>
-          <span style={{ fontSize: '0.75em', opacity: 0.8, marginTop: '1px' }}>{translations.hindi[key]}</span>
-        </span>
-      );
-    }
-    return t[key];
+
+  // Language: 'en' | 'hi' | 'hien' — default English, persisted in localStorage
+  const [language, setLanguageState] = useState(getInitialLanguage);
+
+  const setLanguage = (lang) => {
+    setLanguageState(lang);
+    localStorage.setItem('language', lang);
   };
-  
+
   // Auth State
   const [token, setToken] = useState(localStorage.getItem('token') || '');
   const [currentUser, setCurrentUser] = useState(localStorage.getItem('username') || '');
@@ -100,48 +31,23 @@ function App() {
 
   // Chat State
   const [messages, setMessages] = useState([]);
-  const [showPlusMenu, setShowPlusMenu] = useState(false);
-  const [showVehicleSearch, setShowVehicleSearch] = useState(false);
-  const [vehicleNumber, setVehicleNumber] = useState('');
   const [recentChats, setRecentChats] = useState([
     "Safety Guidelines",
     "Gate Entry Status"
   ]);
-  
-  const categoryQuestions = {
-    'Fire Safety': ['Fire hone par kya kare?', 'Kaunsa extinguisher use kare?', 'Evacuation procedure kya hai?', 'Fire team ka contact kya hai?'],
-    'Gas Leak': ['Gas leak hone par kya kare?', 'Gas mask kab pehne?', 'Emergency exit kahan hai?'],
-    'Electrical Hazard': ['Electric shock lagne par first aid kya hai?', 'LOTO procedure kya hai?'],
-    'PPE Rules': ['Helmet kyu zaruri hai?', 'Safety shoes kab pehne chahiye?', 'Goggles kab use karne chahiye?'],
-    'First Aid': ['Burns ke liye first aid kya hai?', 'First aid box kahan milega?'],
-    'Safety Documents': ['Fire safety manual dikhao', 'PPE SOP kahan hai?'],
-    'Department Info': ['Safety department ka contact do', 'Medical department details'],
-    'Emergency Contacts': ['Ambulance ka number kya hai?', 'Fire control room ka contact?']
-  };
-
-  const handleCategorySelect = (cat) => {
-    if (categoryQuestions[cat]) {
-      setMessages(prev => [...prev, {
-        sender: 'bot',
-        text: `Please select a question from the ${cat} category, or type your own:`,
-        suggestions: categoryQuestions[cat]
-      }]);
-    }
-  };
 
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
-  
+
   // Camera State
   const [capturedPhoto, setCapturedPhoto] = useState(null);
   const fileInputRef = useRef(null);
   const [alertPhoto, setAlertPhoto] = useState(null);
-  const alertFileInputRef = useRef(null);
 
   // WebRTC Camera State
   const [showWebcam, setShowWebcam] = useState(false);
-  const [webcamMode, setWebcamMode] = useState('chat'); // 'chat' or 'alert'
+  const [webcamMode, setWebcamMode] = useState('chat');
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const streamRef = useRef(null);
@@ -151,9 +57,7 @@ function App() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
       streamRef.current = stream;
-      setShowWebcam(true); // Mount the modal
-      
-      // Give React a moment to render the video element
+      setShowWebcam(true);
       setTimeout(() => {
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
@@ -183,7 +87,6 @@ function App() {
       const ctx = canvas.getContext('2d');
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       const dataUrl = canvas.toDataURL('image/jpeg');
-      
       if (webcamMode === 'chat') {
         setCapturedPhoto(dataUrl);
       } else {
@@ -230,7 +133,7 @@ function App() {
       recognition.onend = () => {
         setIsRecording(false);
       };
-      
+
       recognitionRef.current = recognition;
     }
   }, []);
@@ -241,8 +144,7 @@ function App() {
       setIsRecording(false);
     } else {
       if (recognitionRef.current) {
-        // Automatically switch language for better detection
-        recognitionRef.current.lang = language === 'hindi' ? 'hi-IN' : 'en-IN';
+        recognitionRef.current.lang = language === 'hi' ? 'hi-IN' : 'en-IN';
         recognitionRef.current.start();
         setIsRecording(true);
       } else {
@@ -266,13 +168,12 @@ function App() {
         body: JSON.stringify(loginForm)
       });
       const data = await res.json();
-      
+
       if (res.ok) {
         setToken(data.token);
         setCurrentUser(data.username);
         localStorage.setItem('token', data.token);
         localStorage.setItem('username', data.username);
-        setShowLoginModal(false);
         setIsAdminMode(true);
       } else {
         setLoginError(data.error || 'Login failed');
@@ -288,20 +189,22 @@ function App() {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
     setIsAdminMode(false);
+    setMessages([]); // Clear admin session messages when logging out
     setCurrentPage('landing');
   };
 
   const sendMessage = async (text, isEmergencyFlag = false) => {
-    if (!text.trim()) return;
+    // Allow send if there's text or a captured photo
+    if (!text.trim() && !capturedPhoto) return;
+    const messageText = text.trim() || '📷 [Image attached — please describe what you see]';
 
-    // Add user message to UI
-    const newUserMsg = { sender: 'user', text, isEmergency: isEmergencyFlag };
+    const newUserMsg = { sender: 'user', text: messageText, isEmergency: isEmergencyFlag };
     if (capturedPhoto) {
       newUserMsg.photo = capturedPhoto;
     }
-    
+
     if (messages.length === 0) {
-      setRecentChats(prev => [text.substring(0, 25) + (text.length > 25 ? "..." : ""), ...prev]);
+      setRecentChats(prev => [messageText.substring(0, 25) + (messageText.length > 25 ? "..." : ""), ...prev]);
     }
 
     setMessages(prev => [...prev, newUserMsg]);
@@ -311,12 +214,10 @@ function App() {
     setIsLoading(true);
 
     try {
-      // In a real scenario you might not need a token for the chatbot, 
-      // but if the backend requires it, we provide it. If not required, it just ignores it.
       const headers = { 'Content-Type': 'application/json' };
       if (token) headers['Authorization'] = `Bearer ${token}`;
 
-      const payload = { message: text, language };
+      const payload = { message: messageText, language };
       if (photoToSend) {
         payload.imageBase64 = photoToSend;
       }
@@ -326,24 +227,45 @@ function App() {
         headers,
         body: JSON.stringify(payload)
       });
-      
+
       const data = await res.json();
 
       if (res.ok) {
-        // Parse Hindi subtitle if Hinglish mode (we assume the backend appends it on a new line or we just show the raw reply)
         let botReply = data.reply;
         let hindiSub = '';
-        
-        if (language === 'hinglish' && botReply.includes('|SUBTITLE|')) {
-          const parts = botReply.split('|SUBTITLE|');
-          botReply = parts[0].trim();
-          hindiSub = parts[1].trim();
-        } else if (language === 'hinglish' && botReply.includes('\n')) {
-          const lines = botReply.split('\n');
-          const lastLine = lines[lines.length - 1];
-          if (/[\u0900-\u097F]/.test(lastLine)) {
-            hindiSub = lastLine;
-            botReply = lines.slice(0, lines.length - 1).join('\n');
+
+        // Helper: convert Devanagari numerals to Arabic
+        const fixNumerals = (str) => str.replace(/[०-९]/g, d => '०१२३४५६७८९'.indexOf(d));
+
+        // Helper: strip stray |SUBTITLE| marker and any "subtitle" word lines
+        const cleanEnglishReply = (str) => str
+          .replace(/\|SUBTITLE\|[\s\S]*/i, '')   // strip everything from |SUBTITLE| onwards
+          .replace(/^subtitle[:\s]*/gim, '')       // strip lines starting with "subtitle"
+          .trim();
+
+        // Only Hinglish (hien) mode gets Hindi subtitle
+        // Hindi (hi) mode = full Hindi reply, no subtitle
+        // English (en) mode = full English reply, no subtitle
+        if (language === 'hien') {
+          if (botReply.includes('|SUBTITLE|')) {
+            const parts = botReply.split('|SUBTITLE|');
+            botReply = parts[0].trim();
+            hindiSub = fixNumerals(parts[1].trim());
+          } else if (botReply.includes('\n')) {
+            // Fallback: if last paragraph block is Devanagari, treat it as subtitle
+            const lines = botReply.split('\n');
+            const lastLine = lines[lines.length - 1];
+            if (/[\u0900-\u097F]/.test(lastLine)) {
+              hindiSub = fixNumerals(lastLine);
+              botReply = lines.slice(0, lines.length - 1).join('\n').trim();
+            }
+          }
+          botReply = cleanEnglishReply(botReply);
+        } else {
+          // en or hi mode — strip any accidental |SUBTITLE| or subtitle text
+          botReply = cleanEnglishReply(botReply);
+          if (language === 'hi') {
+            botReply = fixNumerals(botReply);
           }
         }
 
@@ -364,21 +286,16 @@ function App() {
     }
   };
 
-  const handleQuickAction = (text) => {
-    sendMessage(text);
-  };
-
   const triggerEmergency = (type) => {
-    setShowEmergencyPanel(false);
     const emergencyText = `Emergency: ${type} at Plant Area`;
     sendMessage(emergencyText, true);
   };
 
   if (isAdminMode && token) {
-    return <AdminDashboard 
-      token={token} 
-      currentUser={currentUser} 
-      onLogout={() => handleLogout()} 
+    return <AdminDashboard
+      token={token}
+      currentUser={currentUser}
+      onLogout={() => handleLogout()}
       messages={messages}
       sendMessage={sendMessage}
       isLoading={isLoading}
@@ -391,6 +308,8 @@ function App() {
       onAttachClick={() => fileInputRef.current?.click()}
       capturedPhoto={capturedPhoto}
       clearPhoto={() => setCapturedPhoto(null)}
+      chatInput={inputText}
+      setChatInput={setInputText}
     />;
   }
 
@@ -400,14 +319,14 @@ function App() {
     localStorage.setItem('token', loginToken);
     localStorage.setItem('username', loginUsername);
     setIsAdminMode(true);
+    setMessages([]); // Clear user session messages when entering admin panel
   };
-
 
   return (
     <>
       {currentPage === 'landing' && (
         <>
-          <LandingPage 
+          <LandingPage
             onAdminClick={() => {
               if (token) {
                 setIsAdminMode(true);
@@ -427,34 +346,35 @@ function App() {
             onAttachClick={() => fileInputRef.current?.click()}
             capturedPhoto={capturedPhoto}
             clearPhoto={() => setCapturedPhoto(null)}
+            chatInput={inputText}
+            setChatInput={setInputText}
           />
-          <input 
-            type="file" 
-            accept="image/*" 
-            capture="environment" 
-            ref={fileInputRef} 
-            style={{ display: 'none' }} 
-            onChange={handlePhotoCapture} 
+          <input
+            type="file"
+            accept="image/*"
+            capture="environment"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            onChange={handlePhotoCapture}
           />
         </>
       )}
 
       {currentPage === 'login' && (
-        <LoginPage 
-          onLogin={handleLoginSuccess} 
-          onBack={() => setCurrentPage('landing')} 
+        <LoginPage
+          onLogin={handleLoginSuccess}
+          onBack={() => setCurrentPage('landing')}
         />
       )}
 
-      {/* WebRTC Camera Modal (Full Screen, kept from previous version) */}
+      {/* WebRTC Camera Modal */}
       {showWebcam && (
         <div className="full-screen-camera-overlay">
           <div className="camera-video-container">
             <video ref={videoRef} autoPlay playsInline className="full-screen-video"></video>
           </div>
-          
+
           <div className="camera-bottom-actions">
-            {/* Flip Camera */}
             <button type="button" className="camera-action-btn" onClick={() => {
               stopWebcam();
               setTimeout(() => {
@@ -467,17 +387,15 @@ function App() {
                     setShowWebcam(true);
                   }).catch(err => {
                     console.error(err);
-                    startWebcam(webcamMode); 
+                    startWebcam(webcamMode);
                   });
               }, 100);
             }}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
             </button>
 
-            {/* Capture Button */}
             <button type="button" className="capture-circle-btn" onClick={captureWebcamPhoto}></button>
 
-            {/* Close Button */}
             <button type="button" className="camera-action-btn" onClick={stopWebcam}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>

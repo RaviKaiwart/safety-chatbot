@@ -31,7 +31,9 @@ export default function AdminDashboard({
       "MAIN": { hi: "मुख्य" },
       "MANAGE": { hi: "प्रबंधन" },
       "Admin Panel": { hi: "एडमिन पैनल" },
-      "Logout Admin": { hi: "लॉगआउट एडमिन" },
+      "Logout Admin": { hi: "एडमिन लॉगआउट" },
+      "Back to Chat": { hi: "चैट पर वापस" },
+      "Back to chat": { hi: "चैट पर वापस जाएँ" },
       "AI-Based Industrial Safety": { hi: "एआई-आधारित औद्योगिक सुरक्षा" },
       "Manage Safety Documents": { hi: "सुरक्षा दस्तावेज़ प्रबंधित करें" },
       "Manage Emergency Contacts": { hi: "आपातकालीन संपर्क प्रबंधित करें" },
@@ -49,7 +51,19 @@ export default function AdminDashboard({
       "Update": { hi: "अपडेट करें" },
       "Cancel": { hi: "रद्द करें" },
       "Edit": { hi: "संपादित करें" },
-      "Delete": { hi: "हटाएं" }
+      "Delete": { hi: "हटाएं" },
+      "View": { hi: "देखें" },
+      "Del": { hi: "हटाएं" },
+      "Pending Alerts": { hi: "लंबित अलर्ट" },
+      "Total Alerts": { hi: "कुल अलर्ट" },
+      "Fire Alerts": { hi: "अग्नि अलर्ट" },
+      "Verified": { hi: "सत्यापित" },
+      "Rejected": { hi: "अस्वीकृत" },
+      "Pending": { hi: "लंबित" },
+      "Verify": { hi: "स्वीकार करें" },
+      "Reject": { hi: "अस्वीकार करें" },
+      "Ask AI...": { hi: "AI से पूछें..." },
+      "Send": { hi: "भेजें" },
     };
     return dict[text] && dict[text][langKey] ? dict[text][langKey] : text;
   };
@@ -153,7 +167,7 @@ export default function AdminDashboard({
   // Verification operations
   const handleVerifyAlert = async (id, status) => {
     try {
-      const res = await fetch((import.meta.env.VITE_API_URL || '') + `/api/alerts/${id}/verify`, {
+      const res = await fetch((import.meta.env.VITE_API_URL || '') + `/api/alerts/${id}/status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ status })
@@ -441,8 +455,8 @@ export default function AdminDashboard({
           <button style={styles.adminBtn} onClick={() => setActiveNav("Chatbot")}>
             ◀
             <div style={{ textAlign: "left" }}>
-              <span style={{ display: "block", fontSize: "11px", color: "#ECE7DC" }}>Back to Chat</span>
-              <small style={{ fontSize: "9px", color: "#A9A79D" }}>चैट पर वापस जाएँ</small>
+              <span style={{ display: "block", fontSize: "11px", color: "#ECE7DC" }}>{t("Back to Chat")}</span>
+              <small style={{ fontSize: "9px", color: "#A9A79D" }}>{t("Back to chat")}</small>
             </div>
           </button>
           <button 
@@ -451,7 +465,7 @@ export default function AdminDashboard({
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
             <div style={{ textAlign: "left" }}>
-              <span style={{ display: "block", fontSize: "11px", color: "#fca5a5" }}>Logout Admin</span>
+              <span style={{ display: "block", fontSize: "11px", color: "#fca5a5" }}>{t("Logout Admin")}</span>
             </div>
           </button>
         </div>
@@ -501,6 +515,7 @@ export default function AdminDashboard({
               otherCount={otherCount}
               pendingAlerts={pendingAlerts}
               verifiedAlerts={verifiedAlerts}
+              onVerifyAlert={handleVerifyAlert}
             />
           )}
 
@@ -520,10 +535,10 @@ export default function AdminDashboard({
                   {documents.map(d => (
                     <tr key={d._id}>
                       <td style={styles.crudTd}>{d.title}</td><td style={styles.crudTd}>{d.category}</td>
-                      <td style={styles.crudTd}><a href={d.link} target="_blank" rel="noreferrer" style={{color:'#ECE7DC'}}>View</a></td>
+                      <td style={styles.crudTd}><a href={d.link} target="_blank" rel="noreferrer" style={{color:'#ECE7DC'}}>{t("View")}</a></td>
                       <td style={styles.crudTd}>
                         <button style={styles.crudEditBtn} onClick={() => startEditDocument(d)}>{t("Edit")}</button>
-                        <button style={styles.crudDelBtn} onClick={() => crudDelete('documents', d._id)}>Del</button>
+                        <button style={styles.crudDelBtn} onClick={() => crudDelete('documents', d._id)}>{t("Del")}</button>
                       </td>
                     </tr>
                   ))}
@@ -550,7 +565,7 @@ export default function AdminDashboard({
                       <td style={styles.crudTd}>{c.name}</td><td style={styles.crudTd}>{c.title}</td><td style={styles.crudTd}>{c.contactNumber}</td>
                       <td style={styles.crudTd}>
                         <button style={styles.crudEditBtn} onClick={() => startEditContact(c)}>{t("Edit")}</button>
-                        <button style={styles.crudDelBtn} onClick={() => crudDelete('contacts', c._id)}>Del</button>
+                        <button style={styles.crudDelBtn} onClick={() => crudDelete('contacts', c._id)}>{t("Del")}</button>
                       </td>
                     </tr>
                   ))}
@@ -578,7 +593,7 @@ export default function AdminDashboard({
                       <td style={styles.crudTd}>{d.name}</td><td style={styles.crudTd}>{d.details}</td><td style={styles.crudTd}>{d.contactNumber}</td>
                       <td style={styles.crudTd}>
                         <button style={styles.crudEditBtn} onClick={() => startEditDept(d)}>{t("Edit")}</button>
-                        <button style={styles.crudDelBtn} onClick={() => crudDelete('departments', d._id)}>Del</button>
+                        <button style={styles.crudDelBtn} onClick={() => crudDelete('departments', d._id)}>{t("Del")}</button>
                       </td>
                     </tr>
                   ))}
@@ -607,7 +622,7 @@ export default function AdminDashboard({
                       <td style={styles.crudTd}>{r.category}</td><td style={styles.crudTd}>{r.title}</td><td style={styles.crudTd}>{r.content.substring(0, 50)}...</td>
                       <td style={styles.crudTd}>
                         <button style={styles.crudEditBtn} onClick={() => startEditRule(r)}>{t("Edit")}</button>
-                        <button style={styles.crudDelBtn} onClick={() => crudDelete('safetyrules', r._id)}>Del</button>
+                        <button style={styles.crudDelBtn} onClick={() => crudDelete('safetyrules', r._id)}>{t("Del")}</button>
                       </td>
                     </tr>
                   ))}
